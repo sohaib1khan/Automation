@@ -1,0 +1,96 @@
+---
+- name: Setup VM
+  hosts: all
+  become: yes
+  tasks:
+  - name: Install python3-pip
+    apt:
+      name: python3-pip
+      state: present
+
+  - name: Install Docker SDK for Python
+    pip:
+      name: docker
+      state: present
+
+  - name: Update and upgrade apt packages
+    apt:
+      update_cache: yes
+      upgrade: yes
+
+  - name: Install aptitude using apt
+    apt: name=aptitude state=latest
+
+  - name: Install required system packages
+    apt: name={{ item }} state=latest update_cache=yes
+    loop:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+  - name: Add Docker's official GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Verify if Docker repository is added
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Update the apt package index
+    apt:
+      update_cache: yes
+
+  - name: Install Docker
+    apt: name=docker-ce state=latest
+
+  - name: Add user to Docker group
+    user:
+      name: "{{ ansible_user }}"
+      groups: docker
+      append: yes
+
+  - name: Install Docker Compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: 'u+x,g+x,o+x'
+
+  - name: Again update and upgrade apt packages
+    apt:
+      update_cache: yes
+      upgrade: yes
+
+  - name: Pull Portainer image
+    docker_image:
+      name: portainer/portainer
+      source: pull
+
+  - name: Run Portainer container
+    docker_container:
+      name: portainer
+      image: portainer/portainer
+      state: started
+      ports:
+        - "9000:9000"
+
+  - name: Check Docker version
+    command: docker --version
+    register: docker_version
+
+  - debug: var=docker_version.stdout_lines
+
+  - name: Test Docker installation
+    command: docker run hello-world
+    register: hello_world_output
+
+  - debug: var=hello_world_output.stdout_lines
+
+  - name: Get the host's IP address
+    shell: hostname -I | awk '{print $1}'
+    register: host_ip_address
+
+  - debug:
+      msg: "You can access the Portainer container at http://{{ host_ip_address.stdout }}:9000"
