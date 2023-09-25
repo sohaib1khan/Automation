@@ -44,3 +44,7 @@ output "vm_ip_address" {
   value = "192.168.1.52"
 }
 
+output "ciuser_output" {
+  value = var.ciuser
+  description = "Output the VM user name"
+}

@@ -41,7 +41,14 @@ This will create a Docker environment with Terraform, Ansible, and other require
 
 - **Terraform**: If you wish to adjust the VM setup (e.g., memory, CPU, storage), make modifications in the `terraform` directory files.
     
-    Remember to update the `secrets.tfvars` with your Proxmox credentials and other secret variables.
+    Remember to update the `.secrets.tfvars` with your Proxmox credentials and other secret variables.
+    `.secrets.tfvars` - values
+    ```
+pm_user     = "USERNAME"
+pm_password = "PASSWORD"
+ciuser      = "UaerName"
+cipassword  = "SomePassword"
+```
     
 - **Ansible**: Adjustments related to VM configuration after deployment (e.g., installed packages, users) should be done in the `ansible` directory files.
     
