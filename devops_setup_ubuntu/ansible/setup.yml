@@ -15,9 +15,37 @@
           - vim
           - tree
           - git
+          - fzf
           - unzip
           - ansible
         state: latest
+
+    - name: Ensure git is installed
+      apt:
+        name: git
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Clone fzf repository
+      git:
+        repo: 'https://github.com/junegunn/fzf.git'
+        dest: '~/.fzf'
+        depth: 1
+        clone: yes
+        update: yes
+      become_user: "{{ ansible_ssh_user }}"
+      
+    - name: Install fzf
+      command:
+        cmd: "~/.fzf/install"
+        creates: "~/.fzf/bin/fzf" # This makes sure the install script doesn't run if fzf is already installed
+      become_user: "{{ ansible_ssh_user }}"
+      register: install_output
+
+
+    - name: Display fzf install output
+      debug:
+        var: install_output.stdout_lines
 
     - name: Install kubernetes
       block:

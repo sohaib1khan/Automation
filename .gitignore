@@ -1,0 +1,41 @@
+# Terraform
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+.secrets.tfvars
+# Ansible
+*.retry
+*.vault
+*.tmp
+ansible.cfg
+# if your secrets are in a group_vars directory, ignore it
+group_vars/
+
+# Docker
+Dockerfile*
+docker-compose.override.yml
+*.env
+*.env.*
+.dockerignore
+.docker/
+
+# General
+*.log
+*.bak
+*.swp
+*.swo
+*.tmp
+*.temp
+*.DS_Store
+
+# Editor & IDE
+.vscode/
+.idea/
+*.sublime*
+*.iml
+
+# SSH
+.ssh/
