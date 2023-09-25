@@ -31,6 +31,7 @@ case $action in
       cd "${BASE_DIR}/ansible"
       echo "Current directory: $(pwd)"
   
+      # NOTE: Update the target user ansible-playbook -i "${VM_IP}," -e "ansible_ssh_user=CHANGEME
       ansible-playbook -i "${VM_IP}," -e "ansible_ssh_user=devops ansible_ssh_private_key_file=/root/.ssh/id_rsa" -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' setup.yml
       ;;
 
