@@ -1,4 +1,4 @@
-# Proxmox Ubuntu Setup
+# Proxmox Ubuntu Machine  Setup with DevOps tools
 
 This repository contains scripts and configurations to set up a Proxmox virtual machine using Terraform and configure it using Ansible.
 
@@ -16,6 +16,8 @@ This repository contains scripts and configurations to set up a Proxmox virtual 
 - Terraform installed
 - Ansible installed
 - Docker and Docker Compose (optional, for the Docker environment)
+
+🔴 **IMPORTANT**: Before proceeding, ensure you update the `.secrets.tfvars` file inside the `terraform` directory with the necessary secret variables (e.g., your Proxmox credentials).
 
 ## Running the Project
 
@@ -46,7 +48,7 @@ This will create a Docker environment with Terraform, Ansible, and other require
 
 ## IP Address
 
-The default IP address of the deployed VM is `192.168.1.52`. Update this IP address in the `deploy.sh` script if needed.
+The default IP address of the deployed VM is `192.168.1.55`. Update this IP address in the `deploy.sh` script if needed.
 
 ## Note
 
