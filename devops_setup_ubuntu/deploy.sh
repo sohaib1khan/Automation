@@ -5,6 +5,7 @@ BASE_DIR="/home"
 USERNAME="devops"
 SSH_KEY="/root/.ssh/id_rsa"
 VM_IP="192.168.1.52"  # You can also use a command to populate this dynamically
+ANSIBLE_FILE="k8s-setup.yaml"
 
 # Function for error checking
 check_error() {
@@ -43,7 +44,7 @@ case $action in
       echo "Current directory: $(pwd)"
   
       # Run Ansible playbook
-      ansible-playbook -i "${VM_IP}," -e "ansible_ssh_user=${USERNAME} ansible_ssh_private_key_file=${SSH_KEY}" -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' setup.yml
+      ansible-playbook -i "${VM_IP}," -e "ansible_ssh_user=${USERNAME} ansible_ssh_private_key_file=${SSH_KEY}" -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' ${ANSIBLE_FILE}
       check_error "Ansible playbook execution"
       ;;
   
