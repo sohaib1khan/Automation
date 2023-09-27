@@ -1,6 +1,6 @@
 # AICat Web Application
 
-![Jenkins Build](../../../img/jenkinsbuild.png)
+![Jenkins Build](https://github.com/sohaib1khan/Automation/blob/main/img/jenkinsbuild.png)
 
 ## Introduction
 
