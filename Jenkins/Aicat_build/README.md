@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This project is a part of AICat, a web application that does [Your application's purpose here]. This repository contains the source code and the Jenkins pipeline configuration to automate the build and deployment process.
+This repository contains the source code and the Jenkins pipeline configuration to automate the build and deployment process.
 
 ## Requirements
 
