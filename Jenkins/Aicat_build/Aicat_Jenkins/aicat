@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check if the script is already in /usr/bin
+if [[ $0 != "/usr/bin/aicat" ]]; then
+    # Call env_setup to create necessary Dockerfile and docker-compose files and launch container
+    ./env_setup
+    
+    # If env_setup completes successfully
+    if [ $? -eq 0 ]; then
+        echo "Setup completed successfully. Installing 'aicat' to /usr/bin for global access."
+        
+        # Copy the aicat script to /usr/bin to make it globally accessible
+        sudo cp $0 /usr/bin/aicat
+        
+        echo "'aicat' is now globally accessible. You can run the chatbot using the 'aicat' command."
+        exit 0
+    else
+        echo "Error during setup. 'aicat' was not installed globally."
+        exit 1
+    fi
+else
+    # If the script is already in /usr/bin, run the Python chatbot in the Docker container
+    docker exec -it python_container python3 /home/chatbot/chatbot.py
+fi
