@@ -3,6 +3,10 @@
   hosts: all
   become: yes
   tasks:
+    - name: Kill all apt processes
+      shell: pkill apt || true
+    - name: Wait for APT lock release
+      shell: while lsof /var/lib/dpkg/lock-frontend; do sleep 10; done;  
     - name: Install python3-pip
       apt:
         name: python3-pip
