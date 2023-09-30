@@ -3,6 +3,7 @@
   hosts: all
   become: yes
   tasks:
+  
     - name: Kill all apt processes
       shell: pkill apt || true
     - name: Wait for APT lock release
