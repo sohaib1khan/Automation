@@ -1,0 +1,21 @@
+# Use the latest Ubuntu image
+FROM ubuntu:latest
+
+# Set non-interactive mode
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update the system and install required packages
+RUN apt-get update && apt-get install -y python3 python3-pip curl vim less && rm -rf /var/lib/apt/lists/*
+
+# Install Python libraries using pip
+RUN pip3 install openai python-dotenv requests Flask bardapi
+
+# Copy local script and .env to the container
+COPY ./chatbot.py /app/
+COPY ./templates /app/templates
+
+# Set the working directory
+WORKDIR /app
+
+# Command to keep the container running
+CMD ["python3", "chatbot.py"]
