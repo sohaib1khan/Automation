@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: darkgray;
+      color: white;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .input-box, .output-box {
+      background-color: gray;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d01b7207-34c3-43e6-bbfb-24aeafd808b3/d4vswdb-776508d5-2028-40d7-bd7f-dbe37f3e76fd.jpg/v1/fill/w_900,h_657,q_75,strp/ai_cat_black_by_soofdreamer-d4vswdb.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9kMDFiNzIwNy0zNGMzLTQzZTYtYmJmYi0yNGFlYWZkODA4YjMvZDR2c3dkYi03NzY1MDhkNS0yMDI4LTQwZDctYmQ3Zi1kYmUzN2YzZTc2ZmQuanBnIiwid2lkdGgiOiI8PTkwMCIsImhlaWdodCI6Ijw9NjU3In1dXX0.G2_-4X_e-vieo_wyOEKtGjWIK_BgtQ_STtDVFsoc2Ng" alt="AI Cat">
+    <h1>Welcome, {{ username }}!</h1>
+
+    <div class="input-box">
+      <form method="post" action="/ask">
+        <input type="text" name="user_input" />
+        <button type="submit">Ask</button>
+      </form>
+    </div>
+
+    <div class="output-box">
+      {% for chat in chat_history[-2:] %}
+        {% if chat.type == 'user' %}
+          <p>User: {{ chat.text }}</p>
+        {% elif chat.type == 'bot' %}
+          <p>Bot ({{ chat.source }}): {{ chat.text }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

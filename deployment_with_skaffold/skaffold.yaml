@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta8
+kind: Config
+metadata:
+  name: chatbot
+build:
+  artifacts:
+  - image: IMG_NAME
+    context: .
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+      - k8s-deployment.yaml
+    defaultNamespace: chatbot-namespace
+
