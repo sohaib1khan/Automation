@@ -15,7 +15,6 @@ ansible.cfg
 group_vars/
 
 # Docker
-Dockerfile*
 docker-compose.override.yml
 *.env
 *.env.*
