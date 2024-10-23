@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG_CREDENTIALS = '8bfe3e4a-62c9-4305-a5e2-4d4debb8242b' // The correct Secret file ID for kubeconfig
+        KUBECONFIG_CREDENTIALS = 'kubeconfig-file' // The correct Secret file ID for kubeconfig
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
                 script {
                     // Use Kubeconfig credentials as a Secret file
                     withCredentials([file(credentialsId: "${KUBECONFIG_CREDENTIALS}", variable: 'KUBECONFIG')]) {
-                        sh 'kubectl apply -f Skaffold_Deployments/nginx_app_test/k8s/'
+                        sh 'kubectl apply -f Skaffold_Deployments/DashLink/k8s/'
                     }
                 }
             }
